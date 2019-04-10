@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+main()
+{
+	int p[2];
+	pid_t childpid;
+
+	pipe(p);
+
+	if (fork( ) == 0)  // create navigation, child 1
+	
+	if( fork( ) == 0)  // create life support – child 2
+			while( true life support)
+			{
+				--
+				write(pipe, buffer, length)
+
+			} // end while - life support loop
+		else
+		{
+			// child1 navigation
+			while( true navigation)
+			{
+				–
+				write(pipe, buffer, length)
+				–
+			}  // end while – navigation loop
+		}// end if
+		// code common to life support and navigation
+	else
+	{
+		// bridge
+		while (true on bridge)
+		{
+			–
+			read(pipe, buffer, length)
+			–
+		}  //end while
+	}  // end bridge specific
+	// code common to bridge and life support
+	return 0
+} // end program

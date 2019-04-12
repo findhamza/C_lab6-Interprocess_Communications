@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -L. -I. -lm
 
-OBJ = entsys.o
+OBJ = enterprise.o
 
 entsys: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)

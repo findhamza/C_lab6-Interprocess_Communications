@@ -6,8 +6,10 @@
 #include <sys/wait.h>
 #include <time.h>
 #include <math.h>
+#include <randapi.h>
 
 #define buff 250
+#define NUMITERATIONS 1234567L
 
 int main()
 {
@@ -26,6 +28,9 @@ int main()
 			close(pNav[1]);
 
 			printf("\nBegining Life System Adjustments\n");
+
+			float time = getRandExponential()*5;
+			printf("\n time = %f \n",time);
 
 			//Beginning Gas Level Adjustments
 			sleep(2);

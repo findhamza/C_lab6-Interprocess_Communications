@@ -7,7 +7,7 @@ LIBHDR = randapi seedRandGenerator
 LIBOBJ = randapi.o seedRandGenerator.o
 OBJ = enterprise.o libRandApi.a
 
-all: libRandApi.a entsys
+all: libRandApi.a enterprise
 
 %.o: %.c $(LIBHDR)
 	$(CC) -c -Wall $@ $< $(CFLAGS)
@@ -15,5 +15,5 @@ all: libRandApi.a entsys
 libRandApi.a: $(LIBOBJ)
 	$(LIB) $@ $^
 
-entsys: $(OBJ)
+enterprise: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)

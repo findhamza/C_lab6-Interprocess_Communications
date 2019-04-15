@@ -76,11 +76,11 @@ int main()
 			printf("\nBegining Navigation Adjustments At %s\n",asctime(timeInfo));
 
 			//Beginning Nav Adjustments
-			int navTime = getRandInteger(6);
+			float navTime = getRandFloat()*6;
 			sleep(navTime);
 
 			char navBuffer[buff];
-			sprintf(navBuffer,"\n\tNavigation Adjusted in %d seconds\n",navTime);
+			sprintf(navBuffer,"\n\tNavigation Adjusted in %f seconds\n",navTime);
 
 			write(pNav[1],navBuffer,buff+1);
 			close(pNav[1]);

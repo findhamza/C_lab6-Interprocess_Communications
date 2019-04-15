@@ -18,6 +18,8 @@ int main()
 
 	pipe(pLife); pipe(pNav);
 
+	seedRandGenerator();
+
 	if((pID = fork())==0)
 	{
 		pid_t cID;
@@ -27,20 +29,36 @@ int main()
 			close(pLife[0]);
 			close(pNav[1]);
 
-			printf("\nBegining Life System Adjustments\n");
+			time_t now;
+			time(&now);
+			struct tm * timeInfo = localtime(&now);
 
-			float time = getRandExponential()*5;
-			printf("\n time = %f \n",time);
+			printf("\nBegining Life System Adjustments At %s\n",asctime(timeInfo));
 
 			//Beginning Gas Level Adjustments
-			sleep(2);
+			float gasTime = 0;
+			for(long k=0; k<NUMITERATIONS; k++)
+				gasTime += getRandExponential()*5.0;
+			gasTime = gasTime / (float)NUMITERATIONS;
+
+			sleep(gasTime);
 			//Beginning Light Level Adjustments
-			sleep(2);
+			float lightTime = 0;
+			for(long k=0; k<NUMITERATIONS; k++)
+				lightTime += getRandExponential()*4.0;
+			lightTime = lightTime / (float)NUMITERATIONS;
+
+			sleep(lightTime);
 			//Beginning Temp Level Adjustments
-			sleep(2);
+			float tempTime = 0;
+			for(long k=0; k<NUMITERATIONS; k++)
+				tempTime += getRandExponential()*4.0;
+			tempTime = tempTime / (float)NUMITERATIONS;
+
+			sleep(tempTime);
 
 			char lifeBuffer[buff];
-			sprintf(lifeBuffer,"\n\tGas Levels Adjusted in %dsecs\n\tLight Levels Adjusted in %dsecs\n\tTemp Levels Adjusted in %dsecs\n",2,2,2);
+			sprintf(lifeBuffer,"\n\tGas Levels Adjusted in %f seconds\n\tLight Levels Adjusted in %f seconds\n\tTemp Levels Adjusted in %f seconds\n",gasTime,lightTime,tempTime);
 
 			write(pLife[1],lifeBuffer,buff+1);
 			close(pLife[1]);
@@ -51,13 +69,18 @@ int main()
 			close(pNav[0]);
 			close(pLife[1]);
 
-			printf("\nBegining Navigation Adjustments\n");
+			time_t now;
+			time(&now);
+			struct tm * timeInfo = localtime(&now);
+
+			printf("\nBegining Navigation Adjustments At %s\n",asctime(timeInfo));
 
 			//Beginning Nav Adjustments
-			sleep(2);
+			int navTime = getRandInteger(6);
+			sleep(navTime);
 
 			char navBuffer[buff];
-			sprintf(navBuffer,"\n\tNavigation Adjusted in %dsec\n",2);
+			sprintf(navBuffer,"\n\tNavigation Adjusted in %d seconds\n",navTime);
 
 			write(pNav[1],navBuffer,buff+1);
 			close(pNav[1]);
@@ -72,9 +95,15 @@ int main()
 	{
 		char bridgeBuffer[buff];
 
+
 		close(pLife[1]);
 		read(pLife[0],bridgeBuffer,sizeof(bridgeBuffer));
 
+		time_t now;
+		time(&now);
+		struct tm * timeInfo = localtime(&now);
+
+		printf("\nBridge Recieved Message At %s",asctime(timeInfo));
 		printf("\nLife Support Adjustment Stats: \n%s",bridgeBuffer);
 
 		close(pNav[1]);
